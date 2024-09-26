@@ -3,6 +3,10 @@ public class Engine {
     double max_fuel;
     FuelType f = FuelType.ELECTRIC;
 
+    public Engine(FuelType f, double current_fuel){
+        this.f = f; 
+        this.current_fuel = current_fuel;
+    }
     public double getCurrent_fuel() {
         return current_fuel;
     }
@@ -27,16 +31,23 @@ public class Engine {
         this.current_fuel = this.max_fuel;
     }
 
-    public go(){
+    public Boolean go(){
         this.current_fuel = this.current_fuel - 50;
-
         // Return the TRUE if there is remaining fuels, otherwise print FALSE
         if (this.current_fuel>0) {
-            return "TRUE";
+            return true;
         } else {
-            return "FALSE";
+            return false;
         }
 
+    }
+
+    public static void main(String[] args) {
+        Engine myEngine = new Engine(FuelType.ELECTRIC, 100.0);
+        while (myEngine.go()) {
+            System.out.println("Choo choo!");
+        }
+        System.out.println("Out of fuel.");
     }
     
 }
