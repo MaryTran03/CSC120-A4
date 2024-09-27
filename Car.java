@@ -1,44 +1,87 @@
 import java.util.ArrayList;
 
+/**
+ * The Car class represents a passenger car with a limited seating capacity.
+ * It manages the list of passengers onboard and provides methods to add or remove passengers,
+ * check the remaining seats, and print a list of passengers.
+ */
 public class Car {
-    ArrayList<Passenger> PassengerList;
-    int max_capacity;
+    /**
+     * List of passengers currently onboard the car.
+     */
+    private ArrayList<Passenger> PassengerList;
 
-    public Car(int max_capacity){
-        this.max_capacity = max_capacity;
-        this.PassengerList = new ArrayList<>(max_capacity);
-    }
-    
-    public void setMax_capacity(int max_capacity) {
-        this.max_capacity = max_capacity;
+    /**
+     * The maximum seating capacity of the car.
+     */
+    private int capacity;
+
+    /**
+     * Constructor to initialize a car with the given seating capacity.
+     *
+     * @param capacity The maximum seating capacity of the car.
+     */
+    public Car(int capacity){
+        this.capacity = capacity;
+        this.PassengerList = new ArrayList<>(capacity);
     }
 
-    public int getMax_capacity() {
-        return max_capacity;
+    /**
+     * Sets the maximum seating capacity of the car.
+     *
+     * @param capacity The new seating capacity of the car.
+     */
+    public void setMax_capacity(int capacity) {
+        this.capacity = capacity;
     }
 
+    /**
+     * Gets the maximum seating capacity of the car.
+     *
+     * @return The maximum seating capacity.
+     */
+    public int getCapacity() {
+        return capacity;
+    }
+
+    /**
+     * Returns the number of seats remaining in the car.
+     *
+     * @return The number of available seats.
+     */
     public int seatsRemaining(){
-        return this.max_capacity - PassengerList.size();
+        return this.capacity - PassengerList.size();
     }
 
+    /**
+     * Adds a passenger to the car if there are remaining seats and the passenger is not already onboard.
+     *
+     * @param p The passenger to add.
+     * @return true if the passenger was successfully added, false if the car is full or the passenger is already onboard.
+     */
     public boolean addPassenger(Passenger p){
         if (PassengerList.contains(p)) {
             System.out.println("Passenger already onboard");
             return false;
-        // Check if there is enough seat
         } else {
             if (this.seatsRemaining() > 0){
                 PassengerList.add(p);
                 System.out.println("Passenger added");
                 return true;
             } else {
-            System.out.println("No seats available");
-            return false;
+                System.out.println("No seats available");
+                return false;
+            }
         }
     }
-}
+
+    /**
+     * Removes a passenger from the car if they are onboard.
+     *
+     * @param p The passenger to remove.
+     * @return true if the passenger was successfully removed, false if the passenger was not found.
+     */
     public boolean removePassenger(Passenger p){
-        // Check if the passenger is already aboard
         if (!PassengerList.contains(p)) {
             System.out.println("Passenger not found");
             return false;
@@ -49,58 +92,29 @@ public class Car {
         }
     }
 
+    /**
+     * Prints the manifest of passengers onboard the car.
+     * If there are no passengers, it prints "No passengers onboard".
+     */
     public void printManifest(){
         if (this.PassengerList.isEmpty()){
             System.out.println("No passengers onboard");
         } else {
-        for (Passenger p : PassengerList) {
-            System.out.println(p.getName());
-        }}
+            for (Passenger p : PassengerList) {
+                System.out.print(p.getName() + ", ");
+            }
+        }
     }
-    
-    public static void main(String[] args) {        
+
+    /**
+     * Main method to demonstrate adding, removing, and printing the passenger manifest for the car.
+     *
+     * @param args Command-line arguments.
+     */
+    public static void main(String[] args) {
         Car car = new Car(2);
 
-        // Initialize passengers
-        Passenger p = new Passenger("Trang");
-        Passenger p1 = new Passenger("Bruce");
-        Passenger p2 = new Passenger("Tatua");
-        Passenger p3 = new Passenger("Tatua Beo");
-
-        // Add and remove passengers
-        car.addPassenger(p1);
-        car.addPassenger(p2);
-        car.removePassenger(p3);
-        car.removePassenger(p2);
-        car.addPassenger(p);
-
-        // Print passengers name
-        car.printManifest();
-
+        // Initialize passengers and perform operations
+        car.printManifest();  // Print passengers' names
     }
-
-    /*
-    Next, we'll set to work on the `Car` class. The `Car` class will need:
-
- - a constructor, which takes in an initial value for the `Car`'s maximum capacity and initializes an appropriately-sized `ArrayList`
- - accessor-like methods `public int getCapacity()` and `public int seatsRemaining()` that return the maximum capacity and remaining seats, respectively
- - `addPassenger(Passenger p)` and `removePassenger(Passenger p)` methods to add or remove a `Passenger` from the `Car` and return `True` if the operation was successful, and `False` otherwise. (_Hint: don't forget to check that there are seats available if someone wants to board, and to confirm that the `Passenger` is actually onboard before trying to remove them! If you encounter a problem, you should `return False`._)
- - and a final method `printManifest()` that prints out a list of all `Passenger`s aboard the car (or "This car is EMPTY." if there is no one on board).
-
-As before, consider which of these should be `public` and which should be `private` (potentially with `accessor`s and/or `manipulator`s).
-
-    */
-
-
-    /*
-    Next, we'll set to work on the `Car` class. The `Car` class will need:
-
- - a constructor, which takes in an initial value for the `Car`'s maximum capacity and initializes an appropriately-sized `ArrayList`
- - accessor-like methods `public int getCapacity()` and `public int seatsRemaining()` that return the maximum capacity and remaining seats, respectively
- - `addPassenger(Passenger p)` and `removePassenger(Passenger p)` methods to add or remove a `Passenger` from the `Car` and return `True` if the operation was successful, and `False` otherwise. (_Hint: don't forget to check that there are seats available if someone wants to board, and to confirm that the `Passenger` is actually onboard before trying to remove them! If you encounter a problem, you should `return False`._)
- - and a final method `printManifest()` that prints out a list of all `Passenger`s aboard the car (or "This car is EMPTY." if there is no one on board).
-
-As before, consider which of these should be `public` and which should be `private` (potentially with `accessor`s and/or `manipulator`s).
-
-    */
 }
