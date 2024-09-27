@@ -21,35 +21,76 @@ public class Car {
         return this.max_capacity - PassengerList.size();
     }
 
-    public String addPassenger(Passenger p, Car c){
-
-        // Check if there is enought seat
-        if (c.seatsRemaining() > 0){
-            PassengerList.add(p);
+    public boolean addPassenger(Passenger p){
+        if (PassengerList.contains(p)) {
+            System.out.println("Passenger already onboard");
+            return false;
+        // Check if there is enough seat
         } else {
-            return "No seats available";
+            if (this.seatsRemaining() > 0){
+                PassengerList.add(p);
+                System.out.println("Passenger added");
+                return true;
+            } else {
+            System.out.println("No seats available");
+            return false;
         }
-        return "Passenger Added";
     }
-
-    public String removePassenger(Passenger p){
-
+}
+    public boolean removePassenger(Passenger p){
         // Check if the passenger is already aboard
         if (!PassengerList.contains(p)) {
-            return "Passenger not found";
-        } else 
-            PassengerList.removeIf(p);
-            return "Done! Passenger removed";
+            System.out.println("Passenger not found");
+            return false;
+        } else {
+            PassengerList.remove(p);
+            System.out.println("Done! Passenger removed");
+            return true;
+        }
     }
 
     public void printManifest(){
+        if (this.PassengerList.isEmpty()){
+            System.out.println("No passengers onboard");
+        } else {
         for (Passenger p : PassengerList) {
-            System.out.println(p);
-        }
+            System.out.println(p.getName());
+        }}
     }
     
     public static void main(String[] args) {        
+        Car car = new Car(2);
+
+        // Initialize passengers
+        Passenger p = new Passenger("Trang");
+        Passenger p1 = new Passenger("Bruce");
+        Passenger p2 = new Passenger("Tatua");
+        Passenger p3 = new Passenger("Tatua Beo");
+
+        // Add and remove passengers
+        car.addPassenger(p1);
+        car.addPassenger(p2);
+        car.removePassenger(p3);
+        car.removePassenger(p2);
+        car.addPassenger(p);
+
+        // Print passengers name
+        car.printManifest();
+
     }
+
+    /*
+    Next, we'll set to work on the `Car` class. The `Car` class will need:
+
+ - a constructor, which takes in an initial value for the `Car`'s maximum capacity and initializes an appropriately-sized `ArrayList`
+ - accessor-like methods `public int getCapacity()` and `public int seatsRemaining()` that return the maximum capacity and remaining seats, respectively
+ - `addPassenger(Passenger p)` and `removePassenger(Passenger p)` methods to add or remove a `Passenger` from the `Car` and return `True` if the operation was successful, and `False` otherwise. (_Hint: don't forget to check that there are seats available if someone wants to board, and to confirm that the `Passenger` is actually onboard before trying to remove them! If you encounter a problem, you should `return False`._)
+ - and a final method `printManifest()` that prints out a list of all `Passenger`s aboard the car (or "This car is EMPTY." if there is no one on board).
+
+As before, consider which of these should be `public` and which should be `private` (potentially with `accessor`s and/or `manipulator`s).
+
+    */
+
 
     /*
     Next, we'll set to work on the `Car` class. The `Car` class will need:

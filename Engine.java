@@ -32,6 +32,7 @@ public class Engine {
     }
 
     public Boolean go(){
+        // Assuming for each go, current fuel goes down by 50
         this.current_fuel = this.current_fuel - 50;
         // Return the TRUE if there is remaining fuels, otherwise print FALSE
         if (this.current_fuel>0) {
@@ -43,11 +44,19 @@ public class Engine {
     }
 
     public static void main(String[] args) {
-        Engine myEngine = new Engine(FuelType.ELECTRIC, 100.0);
+        // Initialize the new engine and their max fuel
+        Engine myEngine = new Engine(FuelType.ELECTRIC, 200.0);
+        myEngine.setMax_fuel(1000);
+
+        // Run the engine for every round
         while (myEngine.go()) {
             System.out.println("Choo choo!");
         }
         System.out.println("Out of fuel.");
+
+        // Test the refuel
+        myEngine.refuel();
+        System.out.println(myEngine.getCurrent_fuel());
     }
     
 }
