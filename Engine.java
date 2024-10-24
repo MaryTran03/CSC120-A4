@@ -3,19 +3,9 @@
  * It allows for tracking of current fuel, refueling, and consumption of fuel as the engine runs.
  */
 public class Engine {
-    /**
-     * The current amount of fuel in the engine.
-     */
-    double current_fuel;
 
-    /**
-     * The maximum fuel capacity of the engine.
-     */
-    double max_fuel;
-
-    /**
-     * The fuel type of the engine (e.g., ELECTRIC, DIESEL).
-     */
+    private double current_fuel;
+    private double max_fuel;
     FuelType f = FuelType.ELECTRIC;
 
     /**
@@ -24,9 +14,10 @@ public class Engine {
      * @param f The fuel type of the engine.
      * @param current_fuel The current amount of fuel in the engine.
      */
-    public Engine(FuelType f, double current_fuel) {
+    public Engine(FuelType f, double current_fuel, double max_fuel) {
         this.f = f;
         this.current_fuel = current_fuel;
+        this.max_fuel = max_fuel;
     }
 
     /**
@@ -86,7 +77,7 @@ public class Engine {
      *
      * @return TRUE if there is remaining fuel, FALSE if the fuel is depleted.
      */
-    public Boolean go() {
+    public boolean go() {
         // Assuming for each go, current fuel goes down by 50 units
         this.current_fuel = this.current_fuel - 50;
         // Return TRUE if there is remaining fuel, otherwise return FALSE
@@ -100,7 +91,7 @@ public class Engine {
      */
     public static void main(String[] args) {
         // Initialize a new engine with a fuel type and current fuel level
-        Engine myEngine = new Engine(FuelType.ELECTRIC, 200.0);
+        Engine myEngine = new Engine(FuelType.ELECTRIC, 200.0, 500);
         myEngine.setMax_fuel(1000);
 
         // Simulate running the engine until the fuel runs out

@@ -9,7 +9,7 @@ public class Train {
     /**
      * The engine of the train, responsible for fuel type and fuel capacity.
      */
-    private Engine engine;
+    private final Engine engine;
 
     /**
      * The list of cars attached to the train.
@@ -19,7 +19,6 @@ public class Train {
     /**
      * The type of fuel used by the train.
      */
-    private FuelType fuelType;
 
     /**
      * The total seating capacity of the train across all cars.
@@ -34,12 +33,13 @@ public class Train {
     /**
      * Constructor to initialize the train with a specified fuel type, fuel capacity, number of cars, and passenger capacity per car.
      *
-     * @param fuelType The type of fuel used by the train.
+     * @param engine The Engine of the car
      * @param fuelCapacity The total fuel capacity of the train's engine.
      * @param nCars The number of cars attached to the train.
      * @param passCapacity The seating capacity of each car.
      */
-    public Train(FuelType fuelType, double fuelCapacity, int nCars, int passCapacity) {
+    public Train(Engine engine, double fuelCapacity, int nCars, int passCapacity) {
+        this.engine = engine;
         this.CarList = new ArrayList<>(nCars);
         for (int i = 0; i < nCars; i++) {
             CarList.add(new Car(passCapacity));
@@ -112,8 +112,10 @@ public class Train {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
+        // Initialize the engine
+        Engine myEngine = new Engine(FuelType.ELECTRIC, 200.0, 500);
         // Initialize the train with 10 cars, each with a capacity of 5 passengers
-        Train train = new Train(FuelType.ELECTRIC, 1000, 10, 5);
+        Train train = new Train(myEngine, 1000, 10, 5);
         Car car = train.getCar(2);  // Get the third car
         Car luxury = train.getCar(4);  // Get the fifth car
 
